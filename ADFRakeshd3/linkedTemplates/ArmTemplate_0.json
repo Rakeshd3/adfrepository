@@ -1,0 +1,151 @@
+{
+	"$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+	"contentVersion": "1.0.0.0",
+	"parameters": {
+		"factoryName": {
+			"type": "string",
+			"metadata": "Data Factory name",
+			"defaultValue": "ADFRakeshd3"
+		},
+		"AzureBlobStorage1_connectionString": {
+			"type": "secureString",
+			"metadata": "Secure string for 'connectionString' of 'AzureBlobStorage1'"
+		}
+	},
+	"variables": {
+		"factoryId": "[concat('Microsoft.DataFactory/factories/', parameters('factoryName'))]"
+	},
+	"resources": [
+		{
+			"name": "[concat(parameters('factoryName'), '/AzureBlobStorage1')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "AzureBlobStorage",
+				"typeProperties": {
+					"connectionString": "[parameters('AzureBlobStorage1_connectionString')]"
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/cts1')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "AzureBlobStorage1",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "Parquet",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobStorageLocation",
+						"fileName": "match_cts.parquet",
+						"folderPath": "Input",
+						"container": "ctsdata"
+					},
+					"compressionCodec": "snappy"
+				},
+				"schema": [
+					{
+						"name": "CUSTOMER_ID",
+						"type": "INT64"
+					},
+					{
+						"name": "STORE",
+						"type": "INT64"
+					},
+					{
+						"name": "STORE_CITY",
+						"type": "UTF8"
+					},
+					{
+						"name": "STORE_ZIP",
+						"type": "UTF8"
+					},
+					{
+						"name": "NUM_SHOP",
+						"type": "INT64"
+					},
+					{
+						"name": "MSRNAME",
+						"type": "UTF8"
+					},
+					{
+						"name": "USER_NAME",
+						"type": "UTF8"
+					},
+					{
+						"name": "USER_PREFERRED_STORE",
+						"type": "UTF8"
+					},
+					{
+						"name": "USER_CLOSEST_STORE",
+						"type": "UTF8"
+					},
+					{
+						"name": "USER_POSTAL",
+						"type": "UTF8"
+					}
+				]
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/AzureBlobStorage1')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/Parquet1')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "AzureBlobStorage1",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "Parquet",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobStorageLocation",
+						"fileName": "v.parquet",
+						"folderPath": "Input",
+						"container": "ctsdata"
+					},
+					"compressionCodec": "snappy"
+				},
+				"schema": [
+					{
+						"name": "CUSTOMER_ID",
+						"type": "INT64"
+					},
+					{
+						"name": "STORE",
+						"type": "INT64"
+					},
+					{
+						"name": "STORE_CITY",
+						"type": "UTF8"
+					},
+					{
+						"name": "STORE_ZIP",
+						"type": "UTF8"
+					},
+					{
+						"name": "NUM_SHOP",
+						"type": "INT64"
+					},
+					{
+						"name": "MSRNAME",
+						"type": "UTF8"
+					}
+				]
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/AzureBlobStorage1')]"
+			]
+		}
+	]
+}
