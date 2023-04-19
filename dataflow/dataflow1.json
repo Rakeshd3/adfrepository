@@ -1,0 +1,33 @@
+{
+	"name": "dataflow1",
+	"properties": {
+		"type": "MappingDataFlow",
+		"typeProperties": {
+			"sources": [
+				{
+					"dataset": {
+						"referenceName": "ct2",
+						"type": "DatasetReference"
+					},
+					"name": "source1"
+				}
+			],
+			"sinks": [],
+			"transformations": [],
+			"scriptLines": [
+				"source(output(",
+				"          CUSTOMER_ID as long,",
+				"          STORE as long,",
+				"          STORE_CITY as string,",
+				"          STORE_ZIP as string,",
+				"          NUM_SHOP as long,",
+				"          MSRNAME as string",
+				"     ),",
+				"     allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     ignoreNoFilesFound: false,",
+				"     format: 'parquet') ~> source1"
+			]
+		}
+	}
+}
