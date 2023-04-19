@@ -1,0 +1,46 @@
+{
+	"name": "Parquet1",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "AzureBlobStorage1",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "Parquet",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobStorageLocation",
+				"fileName": "v.parquet",
+				"folderPath": "Input",
+				"container": "ctsdata"
+			},
+			"compressionCodec": "snappy"
+		},
+		"schema": [
+			{
+				"name": "CUSTOMER_ID",
+				"type": "INT64"
+			},
+			{
+				"name": "STORE",
+				"type": "INT64"
+			},
+			{
+				"name": "STORE_CITY",
+				"type": "UTF8"
+			},
+			{
+				"name": "STORE_ZIP",
+				"type": "UTF8"
+			},
+			{
+				"name": "NUM_SHOP",
+				"type": "INT64"
+			},
+			{
+				"name": "MSRNAME",
+				"type": "UTF8"
+			}
+		]
+	}
+}

@@ -1,0 +1,62 @@
+{
+	"name": "cts1",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "AzureBlobStorage1",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "Parquet",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobStorageLocation",
+				"fileName": "match_cts.parquet",
+				"folderPath": "Input",
+				"container": "ctsdata"
+			},
+			"compressionCodec": "snappy"
+		},
+		"schema": [
+			{
+				"name": "CUSTOMER_ID",
+				"type": "INT64"
+			},
+			{
+				"name": "STORE",
+				"type": "INT64"
+			},
+			{
+				"name": "STORE_CITY",
+				"type": "UTF8"
+			},
+			{
+				"name": "STORE_ZIP",
+				"type": "UTF8"
+			},
+			{
+				"name": "NUM_SHOP",
+				"type": "INT64"
+			},
+			{
+				"name": "MSRNAME",
+				"type": "UTF8"
+			},
+			{
+				"name": "USER_NAME",
+				"type": "UTF8"
+			},
+			{
+				"name": "USER_PREFERRED_STORE",
+				"type": "UTF8"
+			},
+			{
+				"name": "USER_CLOSEST_STORE",
+				"type": "UTF8"
+			},
+			{
+				"name": "USER_POSTAL",
+				"type": "UTF8"
+			}
+		]
+	}
+}
