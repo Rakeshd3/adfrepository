@@ -1,5 +1,5 @@
 {
-	"name": "Parquet1",
+	"name": "cts1",
 	"properties": {
 		"linkedServiceName": {
 			"referenceName": "AzureBlobStorage1",
